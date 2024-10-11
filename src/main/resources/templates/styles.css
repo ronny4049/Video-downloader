@@ -47,7 +47,7 @@ input[type="text"]:focus {
 .search-button {
     position: absolute;
     right: 10px;
-    top: 50%;
+    top: 20%;
     transform: translateY(-50%);
     background-color: transparent;
     border: none;
@@ -55,8 +55,8 @@ input[type="text"]:focus {
 }
 
 .search-icon {
-    width: 25px; /* Adjust the size of the search icon */
-    height: 25px;
+    width: 10px; /* Adjust the size of the search icon */
+    height: 10px;
     fill: #007BFF; /* Change the icon color */
 }
 
