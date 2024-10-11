@@ -22,12 +22,8 @@ h1 {
     color: #333;
 }
 
-.search-form {
+.download-form {
     margin: 20px 0;
-}
-
-.search-bar {
-    position: relative;
 }
 
 input[type="text"] {
@@ -44,24 +40,20 @@ input[type="text"]:focus {
     border-color: #0056b3;
 }
 
-.search-button {
-    position: absolute;
-    right: 10px;
-    top: 20%;
-    transform: translateY(-50%);
-    background-color: transparent;
+.download-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
     border: none;
+    border-radius: 25px;
+    font-size: 16px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.search-icon {
-    width: 10px; /* Adjust the size of the search icon */
-    height: 10px;
-    fill: #007BFF; /* Change the icon color */
-}
-
-.search-button:hover .search-icon {
-    fill: #0056b3; /* Change icon color on hover */
+.download-button:hover {
+    background-color: #0056b3;
 }
 
 .result {
