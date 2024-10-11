@@ -9,9 +9,13 @@
 <body>
     <div class="container">
         <h1>Video Downloader</h1>
-        <form action="/download" method="post">
-            <input type="text" name="url" placeholder="Enter Video URL" required>
-            <button type="submit">Download</button>
+        <form action="/download" method="post" class="search-form">
+            <div class="search-bar">
+                <input type="text" name="url" placeholder="Enter Video URL" required>
+                <button type="submit" class="search-button">
+                    <img src="search-icon.png" alt="Search" class="search-icon">
+                </button>
+            </div>
         </form>
         <div class="result" th:if="${status}">
             <h2>Download Status:</h2>
