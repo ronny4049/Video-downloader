@@ -273,4 +273,5 @@ Create a systemd unit configuration file for Node Exporter:
 
    Reload the Prometheus configuration without restarting:
 ### Install grafana
+``` docker run --name grafana-test -d -p 3000:3000 grafana/grafana-oss:latest ```
 
