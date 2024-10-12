@@ -165,20 +165,20 @@ ExecStart=/usr/local/bin/prometheus \
 [Install]
 WantedBy=multi-user.target
   ```
-# check the status after running add the below in the same file
+## enable and Check the status 
 ```
 sudo systemctl enable prometheus
 sudo systemctl start prometheus
 sudo systemctl statuus prometheus
 ```
-## sudo systemctl start prometheus
+### Add the below in the same file
 ```
 --web.console.templates=/etc/prometheus/consoles \
   --web.console.libraries=/etc/prometheus/console_libraries \
   --web.listen-address=0.0.0.0:9090 \
   --web.enable-lifecycle
 ```
-**Installing Node Exporter:**
+## Installing Node Exporter:
 
    Create a system user for Node Exporter and download Node Exporter:
 
