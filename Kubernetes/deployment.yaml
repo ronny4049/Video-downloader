@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: video-download
+  labels:
+    app: video-download
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: video-download
+  template:
+    metadata:
+      labels:
+        app: video-download
+    spec:
+      containers:
+      - name: prime-app
+        image: ranjandalai4049/video-downloader:v1
+        ports:
+        - containerPort: 8080
