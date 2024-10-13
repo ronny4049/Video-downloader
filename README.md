@@ -330,6 +330,8 @@ export ARGOCD_SERVER=`kubectl get svc argocd-server -n argocd -o json | jq --raw
 ```
 #### Get the external ip using
 ``` kubectl get svc –n argocd ```
+### For access the argocd application 
+``` copy the ec2 ip with port, e.g: https://18.208.216.37:31529/ ```
 #### For initial password use below command
 ``` kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 –d ```
 
