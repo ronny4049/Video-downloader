@@ -290,33 +290,31 @@ Node exprorter : 1860
 ```
 ### Create cluster
 ```
-eksctl create cluster --name=ran-demo \ 
-                      --region=us-east-1 \ 
-                      --zones=us-east-1a,us-east-1b \ 
-                      --without-nodegroup
+eksctl create cluster --name=ran-demo --region=us-east-1 --zones=us-east-1a,us-east-1b --without-nodegroup
 ```
 ### Create OIDC
 ```
-eksctl utils associate-iam-oidc-provider --region us-east-1 --cluster randemo --approve
+eksctl utils associate-iam-oidc-provider --region us-east-1 --cluster ran-demo --approve
 ```
 ### Create node for the cluster
 ```
-eksctl create nodegroup --cluster=randemo \ 
-  --region=us-east-1 \ 
-  --name=ran-demo-ng-public1 \ 
-  --node-type=t3.medium \ 
-  --nodes=2 \ 
-  --nodes-min=2 \ 
-  --nodes-max=4 \ 
-  --node-volume-size=20 \ 
-  --ssh-access \ 
-  --ssh-public-key=My-key \ 
-  --managed \ 
-  --asg-access \ 
-  --external-dns-access \ 
-  --full-ecr-access \ 
-  --appmesh-access \ 
-  --alb-ingress-access
+eksctl create nodegroup --cluster=ran-demo \
+   --region=us-east-1 \
+   --name=ran-demo-ng-public1 \
+   --node-type=t3.medium \
+   --nodes=2 \
+   --nodes-min=2 \
+   --nodes-max=4 \
+   --node-volume-size=20 \
+   --ssh-access \
+   --ssh-public-key=My-key \
+   --managed \
+   --asg-access \
+   --external-dns-access \
+   --full-ecr-access \
+   --appmesh-access \
+   --alb-ingress-access
+
 ```
 ### Install Argocd
 ```
