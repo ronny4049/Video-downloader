@@ -32,6 +32,8 @@ curl -sSfL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | 
 ```
 ### Build Stage
 ``` Git Checkout-->Maven Build-->Sonarqube Analysis-->Quality Gate-->OWASP FS SCAN-->Trivy File Scan-->Build Docker Image-->Tag & Push to DockerHub-->Docker Scout Image-->Deploy to Comtainer ```
+#### I'm planing to use POLL SCM as build triggers, so it will Runs the build job if there are new commits or changes detected in the repository(github, bitbucket, etc).
+``` 0 */1 * * * : every hour, go to the tool: https://tool.crontap.com/cronjob-debugger ``
 ### Jenkins Complete pipeline
 ```
 pipeline {
