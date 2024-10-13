@@ -274,4 +274,66 @@ Create a systemd unit configuration file for Node Exporter:
    Reload the Prometheus configuration without restarting:
 ### Install grafana
 ``` docker run --name grafana-test -d -p 3000:3000 grafana/grafana-oss:latest ```
+### Configure the grafana with promitheus
+```
+And check in prometheus UI in Status/Targets 
+After that login to grafana and to connection/add new coonection 
+Search for prometheus and give the url and save it 
+Now go to dashboard and select new and give jenkins code 1860 and load and select the prometheus and save it : 9964 
+Node exprorter : 1860
+```
+### Now create Eks cluster in aws
+```
+--> Install kubectl, aws cli and eksctl 
+---> Configure AWS 
+---> Create EKS cluster using below command
+```
+### Create cluster
+```
+eksctl create cluster --name=ran-demo \ 
+                      --region=us-east-1 \ 
+                      --zones=us-east-1a,us-east-1b \ 
+                      --without-nodegroup
+```
+### Create OIDC
+```
+eksctl utils associate-iam-oidc-provider --region us-east-1 --cluster randemo --approve
+```
+### Create node for the cluster
+```
+eksctl create nodegroup --cluster=randemo \ 
+  --region=us-east-1 \ 
+  --name=ran-demo-ng-public1 \ 
+  --node-type=t3.medium \ 
+  --nodes=2 \ 
+  --nodes-min=2 \ 
+  --nodes-max=4 \ 
+  --node-volume-size=20 \ 
+  --ssh-access \ 
+  --ssh-public-key=My-key \ 
+  --managed \ 
+  --asg-access \ 
+  --external-dns-access \ 
+  --full-ecr-access \ 
+  --appmesh-access \ 
+  --alb-ingress-access
+```
+### Install Argocd
+```
+kubectl create namespace argocd kubectl  
+
+apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
+### For exposing to the out side use below command 
+``` kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}} ```
+#### wait for 2 min and run below command
+```
+export ARGOCD_SERVER=`kubectl get svc argocd-server -n argocd -o json | jq --raw-output '.status.loadBalancer.ingress[0].hostname'
+```
+#### Get the external ip using
+``` kubectl get svc –n argocd ```
+#### For initial password use below command
+``` kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 –d ```
+
+
 
