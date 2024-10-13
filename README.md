@@ -341,9 +341,8 @@ export ARGOCD_SERVER=`kubectl get svc argocd-server -n argocd -o json | jq --raw
 --> Create a new app after giving all the details like git hub and all 
 
 --> Then argo will take the code from git hub and it will deploy automatically all the pod and everyting
-
-### Install Node Exporter using Helm
-
+```
+###  Install Node Exporter using Helm
 To begin monitoring your Kubernetes cluster, you'll install the Prometheus Node Exporter. This component allows you to collect system-level metrics from your cluster nodes. Here are the steps to install the Node Exporter using Helm:
 
 1. Add the Prometheus Community Helm repository:
