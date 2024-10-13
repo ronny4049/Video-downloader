@@ -333,5 +333,15 @@ export ARGOCD_SERVER=`kubectl get svc argocd-server -n argocd -o json | jq --raw
 #### For initial password use below command
 ``` kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 –d ```
 
+```
+--> Login to the argocd and click on the new app 
+
+--> Create a new app after giving all the details like git hub and all 
+
+--> Then argo will take the code from git hub and it will deploy automatically all the pod and everyting 
+
+---> We can access the application using aws cluster ip address with mentioned port in service file
+```
+
 
 
