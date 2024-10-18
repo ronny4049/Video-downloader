@@ -132,8 +132,8 @@ wget https://github.com/prometheus/prometheus/releases/download/v2.54.1/promethe
 ```
 ## extract and move the file
 ```
-tar -xvf prometheus-2.47.1.linux-amd64.tar.gz
-cd prometheus-2.47.1.linux-amd64/
+tar -xvf prometheus-2.54.1.linux-amd64.tar.gz
+cd prometheus-2.54.1.linux-amd64/
 sudo mkdir -p /data /etc/prometheus
 sudo mv prometheus promtool /usr/local/bin/
 sudo mv consoles/ console_libraries/ /etc/prometheus/
@@ -142,9 +142,9 @@ sudo mv prometheus.yml /etc/prometheus/prometheus.yml
 
 ## Change the ownership
 ``` sudo chown -R prometheus:prometheus /etc/prometheus/ /data/ ```
-## edit the file 
+## Edit the file 
 ``` /etc/systemd/system/prometheus.service ```
-``` sudo nano /etc/systemd/system/prometheus.service ```
+``` sudo vi /etc/systemd/system/prometheus.service ```
 ### add below
 ```
 Unit]
