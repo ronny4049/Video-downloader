@@ -326,10 +326,10 @@ kubectl create namespace argocd kubectl
 apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```
 ### For exposing to the out side use below command 
-``` kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}} ```
+``` kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}' ```
 #### wait for 2 min and run below command
 ```
-export ARGOCD_SERVER=`kubectl get svc argocd-server -n argocd -o json | jq --raw-output '.status.loadBalancer.ingress[0].hostname'
+export ARGOCD_SERVER=$(kubectl get svc argocd-server -n argocd -o json | jq --raw-output '.status.loadBalancer.ingress[0].hostname')
 ```
 #### Get the external ip using
 ``` kubectl get svc –n argocd ```
