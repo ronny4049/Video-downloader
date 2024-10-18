@@ -164,6 +164,7 @@ RestartSec=5s
 ExecStart=/usr/local/bin/prometheus \
   --config.file=/etc/prometheus/prometheus.yml \
   --storage.tsdb.path=/data \
+
 [Install]
 WantedBy=multi-user.target
   ```
@@ -171,7 +172,7 @@ WantedBy=multi-user.target
 ```
 sudo systemctl enable prometheus
 sudo systemctl start prometheus
-sudo systemctl statuus prometheus
+sudo systemctl status prometheus
 ```
 ### Add the below in the same file
 ```
