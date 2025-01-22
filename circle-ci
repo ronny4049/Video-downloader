@@ -1,0 +1,77 @@
+version: 2.1
+
+jobs:
+  build_and_test:
+    docker:
+      - image: circleci/python:3.8
+    environment:
+      JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
+      PATH: "/usr/lib/jvm/java-17-openjdk-amd64/bin:$PATH"
+    steps:
+      - checkout
+
+      - run:
+          name: Setup Logs and Environment Variables
+          command: |
+            export auto_dir=`pwd`
+            mkdir logs
+            env > env.txt
+            export logs_dir=${auto_dir}/logs
+            echo "Test run could not start!" > results.txt
+
+      - run:
+          name: Install Python Dependencies
+          command: |
+            pip3 install pip --upgrade > ${logs_dir}/python_pip_upgrade.txt 2>&1
+            pip3 install --user -r requirements.txt > ${logs_dir}/python_pip_requirements_install.txt 2>&1
+            echo "Automation requirements finished installing"
+
+      - run:
+          name: Check MVRETAIL_BRANCH
+          command: |
+            if echo "$MVRETAIL_BRANCH" | grep -q "excludeci"; then
+              echo "Branch contains excludeci keyword. No Automation Test runs against this branch!!"
+              exit 0
+            else
+              echo "Proceed with running Automation Test runs against this branch!!"
+            fi
+
+      - run:
+          name: Clone and Prepare Repositories
+          command: |
+            git clone --depth 1 git@github.com:MoVista/MVNEXT.git --branch $MVNEXT_BRANCH --single-branch
+            git clone --depth 1 git@github.com:MoVista/MVRetail.git --branch $MVRETAIL_BRANCH --single-branch
+            git clone --depth 1 git@github.com:MoVista/SimpleSAMLphp.git --branch master --single-branch
+            mv SimpleSAMLphp simplesamlphp
+
+      - run:
+          name: Build APK (If RUN_AMP is true)
+          when: always
+          command: |
+            if [ $RUN_AMP = true ]; then
+              echo "Starting APK Build Process"
+              cd MVNEXT
+              sudo npm install --global yarn
+              yarn install > ${logs_dir}/yarn_install_output.txt 2>&1
+              yarn react-native bundle --platform android --dev false --entry-file index.js \
+                --bundle-output android/app/src/main/assets/index.android.bundle \
+                --assets-dest android/app/build/intermediates/res/merged/release/ > ${logs_dir}/yarn_asset_bundle.txt 2>&1
+              cd android
+              ./gradlew assembleRelease > ${logs_dir}/gradle_assemble_release.txt 2>&1
+              echo "App build completed!!"
+              cd $auto_dir
+            fi
+
+      - run:
+          name: Start Services and Run Tests
+          command: |
+            sudo service mariadb start
+            sudo service apache2 start
+            sudo service redis-server start
+            python run_all.py
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build_and_test
